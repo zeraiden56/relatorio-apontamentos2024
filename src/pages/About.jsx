@@ -1,6 +1,11 @@
+import { TaskPage } from "../../src/components/tasks/page";
+
 const About = () => {
-    return <h2>About Page</h2>;
-  };
-  
-  export default About;
-  
+  return (
+    <>
+      <TaskPage />
+    </>
+  );
+};
+
+export default About;

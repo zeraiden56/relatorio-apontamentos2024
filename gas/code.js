@@ -9,9 +9,3 @@ function doGet() {
 function includes(filename) {
   return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
-
-function getSheetData() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
-  const data = sheet.getDataRange().getValues();
-  return data;
-}
