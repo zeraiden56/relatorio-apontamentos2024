@@ -1,5 +1,6 @@
+import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
-import About from "./pages/About";
+import Tasks from "./pages/Tasks";
 import Settings from "./pages/Settings";
 import Home from "./pages/Home";
 
@@ -10,9 +11,9 @@ export const routes = [
     component: Home,
   },
   {
-    title: "About",
-    url: "/about",
-    component: About,
+    title: "Tasks",
+    url: "/Tasks",
+    component: Tasks,
   },
   {
     title: "Settings",
@@ -23,5 +24,10 @@ export const routes = [
     title: "Contact",
     url: "/contact",
     component: Contact,
+  },
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    component: Dashboard,
   },
 ];

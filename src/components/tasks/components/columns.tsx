@@ -54,7 +54,7 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
+          {label && <ColorBadge color={label.color}>{label.label}</ColorBadge>}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
           </span>
@@ -121,3 +121,23 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ]
+
+
+type ColorBadgeProps = {
+  color?: any;
+  children: React.ReactNode;
+};
+
+function ColorBadge({ color = "blue", children }: ColorBadgeProps) {
+  const colorClasses: Record<string, string> = {
+    blue: "bg-blue-500 text-white",
+    red: "bg-red-500 text-white",
+    green: "bg-green-500 text-white",
+   
+  };
+
+  return <Badge className={colorClasses[color]}>{children}</Badge>;
+}
+
+// Usage
+

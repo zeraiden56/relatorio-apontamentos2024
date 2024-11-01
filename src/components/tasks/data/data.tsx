@@ -13,14 +13,17 @@ export const labels = [
   {
     value: "bug",
     label: "Bug",
+    color: "red",
   },
   {
     value: "feature",
     label: "Feature",
+    color: "green",
   },
   {
     value: "documentation",
     label: "Documentation",
+    color: "blue",
   },
 ]
 

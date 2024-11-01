@@ -1,8 +1,7 @@
 function doGet() {
   return HtmlService.createTemplateFromFile("index")
     .evaluate()
-    .setFaviconUrl("https://heartstchr.github.io/img/borl.png")
-    .setTitle("Aquaservice")
+    .setTitle("React-Apps-Script")
     .addMetaTag("viewport", "width=device-width, initial-scale=1");
 }
 
