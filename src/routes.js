@@ -1,4 +1,4 @@
-import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import Tasks from "./pages/Tasks";
 import Settings from "./pages/Settings";
@@ -25,9 +25,10 @@ export const routes = [
     url: "/contact",
     component: Contact,
   },
+
   {
-    title: "Dashboard",
-    url: "/dashboard",
-    component: Dashboard,
+    title: "Profile",
+    url: "/profile",
+    component: Profile,
   },
 ];
