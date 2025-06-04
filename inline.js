@@ -1,30 +1,29 @@
+/* eslint-env node */
 import fs from "fs";
 import path from "path";
 
-// Define the root directory and the path for the gas folder
-const rootDir = process.cwd(); // Current working directory (root)
-const gasDir = path.join(rootDir, "gas"); // Path to the gas folder
-const distDir = path.join(rootDir, "dist"); // Path to the dist directory
-const assetsDir = path.join(distDir, "assets"); // Path to the assets directory
+// caminho raiz do projeto
+const rootDir = process.cwd(); 
+const gasDir  = path.join(rootDir, "gas");
+const distDir = path.join(rootDir, "dist");
+const assetsDir = path.join(distDir, "assets");
 
-// Check if the gas directory exists, create if it doesn't
+// garante que exista a pasta "gas"
 if (!fs.existsSync(gasDir)) {
   fs.mkdirSync(gasDir);
   console.log("Created gas directory.");
 }
 
-// Function to find the latest .js or .css file in the assets directory
-const findLatestFile = (dir, ext) => {
+// pega o arquivo mais recente com determinada extensão
+function findLatestFile(dir, ext) {
   const files = fs.readdirSync(dir);
-  const latestFile = files
-    .filter((file) => file.endsWith(ext))
+  return files
+    .filter(f => f.endsWith(ext))
     .sort()
-    .pop(); // Get the latest file
-  return latestFile ? path.join(dir, latestFile) : null;
-};
+    .pop() ?? null;
+}
 
-// Find the latest index.js and index.css files in the assets directory
-const jsFile = findLatestFile(assetsDir, ".js");
+const jsFile  = findLatestFile(assetsDir, ".js");
 const cssFile = findLatestFile(assetsDir, ".css");
 
 if (!jsFile || !cssFile) {
@@ -32,15 +31,17 @@ if (!jsFile || !cssFile) {
   process.exit(1);
 }
 
-// Read the content of the files
-const cssContent = fs.readFileSync(cssFile, "utf8");
-const jsContent = fs.readFileSync(jsFile, "utf8");
+// lê o conteúdo puro
+const jsContent  = fs.readFileSync(path.join(assetsDir, jsFile),  "utf8");
+const cssContent = fs.readFileSync(path.join(assetsDir, cssFile), "utf8");
 
-// Create HTML files for JavaScript and CSS in the gas directory
-const jsHtmlPath = path.join(gasDir, "js.html");
-const cssHtmlPath = path.join(gasDir, "css.html");
+// **ATENÇÃO**: aqui é a única mudança necessária.
+// adicionamos `type="module"` para que o bundle seja executado como ES Module.
+const jsHtml = `<script type="module">\n${jsContent}\n</script>`;
+const cssHtml = `<style>\n${cssContent}\n</style>`;
 
-fs.writeFileSync(jsHtmlPath, `<script>${jsContent}</script>`);
-fs.writeFileSync(cssHtmlPath, `<style>${cssContent}</style>`);
+// escreve nos arquivos que o Apps Script vai incluir
+fs.writeFileSync(path.join(gasDir, "js.html"),  jsHtml,  "utf8");
+fs.writeFileSync(path.join(gasDir, "css.html"), cssHtml, "utf8");
 
 console.log("Created js.html and css.html in the gas directory successfully!");

@@ -1,24 +1,21 @@
-// App.js
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar } from "@/components/Navbar";
-import { routes } from "@/routes";
-import "./App.css";
+// src/App.jsx
+import React from "react";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout";
+import { routes } from "./routes";
 
-function App() {
+export default function App() {
   return (
     <Router>
-      <div className="app-container">
-        <Navbar />
-        <div className="content">
-          <Routes>
-            {routes.map((route) => (
-              <Route path={route.url} element={<route.component />} key={route.title} />
-            ))}
-          </Routes>
-        </div>
-      </div>
+      <Layout>
+        <Routes>
+          {routes.map(({ url, component: Page }) => (
+            <Route key={url} path={url} element={<Page />} />
+          ))}
+          {/* opcional: redireciona rotas desconhecidas de volta ao início */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }
-
-export default App;

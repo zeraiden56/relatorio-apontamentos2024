@@ -1,16 +1,48 @@
+<!-- gas/index.html -->
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your App Title</title>
-    <?!= includes("css.html"); ?>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Relatório de Apontamentos 2024 | Diretoria Jurídica | DPEMT</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Relatório de Apontamentos 2024 | Diretoria Jurídica | DPEMT" />
+  <meta property="og:description" content="Confira o Relatório de Apontamentos 2024 da Diretoria Jurídica com dashboards interativos e análises detalhadas." />
+  <meta property="og:image"       content="https://i.imgur.com/jPNFcZk.png" />
+  <meta property="og:url"         content="https://script.google.com/macros/s/AKfyc.../exec" />
+  <meta property="og:type"        content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Relatório de Apontamentos 2024 | Diretoria Jurídica | DPEMT" />
+  <meta name="twitter:description" content="Confira o Relatório de Apontamentos 2024 da Diretoria Jurídica com dashboards interativos e análises detalhadas." />
+  <meta name="twitter:image"       content="https://i.imgur.com/gBDmhR5.png" />
+
+  <!-- Dynamic favicon based on theme -->
+  <!-- light theme → use black icon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://i.imgur.com/wT3RYqH.png"
+    media="(prefers-color-scheme: light)"
+  />
+  <!-- dark theme → use white icon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://i.imgur.com/sHR9T7w.png"
+    media="(prefers-color-scheme: dark)"
+  />
+
+  <!-- Bundled CSS -->
+  <?!= includes('css.html') ?>
 </head>
-
 <body>
-    <div id="root"></div>
-    <?!= includes("js.html"); ?>
-</body>
+  <div id="root"></div>
 
+  <!-- Bundled JS -->
+  <?!= includes('js.html') ?>
+</body>
 </html>

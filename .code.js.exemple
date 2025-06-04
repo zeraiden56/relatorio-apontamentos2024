@@ -1,0 +1,48 @@
+/**
+ * getSheetData(page) — já existente no seu projeto,
+ * retorna uma string JSON: [{ sheetName, rows: [...] }, ...]
+ */
+
+/**
+ * Lê do CacheService ou do SpreadsheetApp
+ * apenas a aba solicitada em `page` e devolve JSON puro.
+ */
+function handleApiRequest(page) {
+  const cache = CacheService.getScriptCache();
+  const key   = `portal_${page}`;          // ex: "portal_ementario"
+  let payload = cache.get(key);
+
+  if (!payload) {
+    // faz a leitura direta
+    payload = getSheetData(page);           // retorna string JSON
+    cache.put(key, payload, 600);           // cache de 10 minutos
+  }
+
+  return ContentService
+    .createTextOutput(payload)
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * doGet — lavoura combinada:
+ *  - /exec?exec=json&page=ementario   → devolve JSON da aba "ementario"
+ *  - /exec?exec=json&page=vademeccum  → devolve JSON da aba "vademeccum"
+ *  - sem esses params, serve seu HTML normal
+ */
+function doGet(e) {
+  if (e.parameter.exec === 'json' && e.parameter.page) {
+    return handleApiRequest(e.parameter.page);
+  }
+  // fallback: serve frontend React
+  return HtmlService
+    .createTemplateFromFile('index')
+    .evaluate()
+    .setTitle('Portal da Diretoria Jurídica | DPEMT')
+    .addMetaTag('viewport','width=device-width, initial-scale=1');
+}
+
+function includes(filename) {
+  return HtmlService
+    .createHtmlOutputFromFile(filename)
+    .getContent();
+}
